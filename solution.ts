@@ -25,7 +25,7 @@ class Person {
   }
 
   getDetails() {
-    return `Name: ${this.name}, Age: ${this.age}`;
+    return `'Name: ${this.name}, Age: ${this.age}'`;
   }
 }
 
@@ -119,7 +119,13 @@ const products = [
 ];
 
 const calculateTotalPrice = (array: Product[]) => {
-  return array.reduce((acc, cur) => {
-    return (acc += cur.quantity * cur.price);
+  return array.reduce((acc, item) => {
+    let itemTotal = item.price * item.quantity;
+
+    if (item.discount !== undefined) {
+      const discountAmount = (itemTotal * item.discount) / 100;
+      itemTotal -= discountAmount;
+    }
+    return acc + itemTotal;
   }, 0);
 };
